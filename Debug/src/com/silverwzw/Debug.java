@@ -33,14 +33,14 @@ public class Debug {
 	
 	public static boolean rawPrint(int level, String msg, PrintStream o) {
 		if (ge(level)) {
-			o.print(msg);
+			o.print("[DEBUG][" + Thread.currentThread().getId()+ "]" + msg);
 			return true;
 		}
 		return false;
 	}
 	
 	public static boolean println(int level, String msg) {
-		return rawPrint(level, "[DEBUG]" + msg + '\n', System.out);
+		return rawPrint(level, msg + '\n', System.out);
 	}
 	
 	public static boolean printIStream(int level, InputStream is) {
@@ -49,7 +49,7 @@ public class Debug {
 		br = new BufferedReader(new InputStreamReader(is));
 		try {
 			while ((line = br.readLine()) != null) {
-				rawPrint(level, "[DEBUG]" + line + '\n', System.out);
+				rawPrint(level, line + '\n', System.out);
 			}
 		} catch (IOException e) {
 			System.err.print("IOException Occured!\n");
@@ -91,11 +91,11 @@ public class Debug {
 			name = name.substring(name.lastIndexOf('.') + 1);
 		}
 		
-		return rawPrint(2, "[DEBUG]" + action + ": " + name + "." + methodName + '\n', System.out);
+		return rawPrint(2, action + ": " + name + "." + methodName + '\n', System.out);
 	}
 	
 	public static boolean info(String msg) {
-		return rawPrint(1, "[DEBUG]" + msg + '\n', System.out);
+		return rawPrint(1, msg + '\n', System.out);
 	}
 	
 	public static boolean exception(Exception e) {
